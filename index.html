@@ -48,7 +48,7 @@
         </a>
        </p>
        <p>
-        Original Title: リコとハルと温泉とイルカ
+        Japanese Title: リコとハルと温泉とイルカ
        </p>
        <p>
         Publication: Finished
@@ -147,7 +147,7 @@
         </a>
        </p>
        <p>
-        Original Title: <br>コスモファミリア＊
+        Japanese Title: コスモファミリア＊
        </p>
        <p>
         Publication: Finished
@@ -301,7 +301,7 @@
         </a>
        </p>
        <p>
-        Original Title: きたない君がいちばんかわいい
+        Japanese Title: きたない君がいちばんかわいい
        </p>
        <p>
         Publication: Ongoing
@@ -372,10 +372,10 @@
         Vol02 ch10 + Extras
        </a>
        <a class="chapter" href="https://mega.nz/file/pZpGzSKb#GWRYLyoePrdKA6b6bqGUulmuDvUKMqVygc96n5ocilU">
-        Vol3 ch0.5
+        Vol03 ch0.5
        </a>
        <a class="chapter" href="https://mega.nz/file/VRhWhQKI#qy4qh7fBJljnC8yPgWGHHFFlh5UOkS-LwVFWqSbmhyk">
-        Vol3 - Extras + The Melancholy of Miyazono Ichika
+        Vol03 - Extras + The Melancholy of Miyazono Ichika
        </a>
        <a class="chapter" href="https://mega.nz/file/BY4FgSgB#r832TeMjKq3GZEN4d_me0gl6EjkJ7qww5bhcuTcSnZk">
         Chapter 11
@@ -455,7 +455,7 @@
         </a>
        </p>
        <p>
-        Original Title: 星屑テレパス
+        Japanese Title: 星屑テレパス
        </p>
        <p>
         Publication: Ongoing
@@ -596,7 +596,7 @@
         </a>
        </p>
        <p>
-        Original Title: スクールゾーン
+        Japanese Title: スクールゾーン
        </p>
        <p>
         Publication: Ongoing
@@ -943,7 +943,7 @@
             var collapsibles = containers[i].getElementsByClassName("collapsiblecontent");
             for (var j = 0; j < collapsibles.length; j++) {
                 collapsibles[j].maximumHeight = collapsibles[j].scrollHeight;
-                collapsibles[j].forcedVisible = 1;
+                collapsibles[j].forcedVisible = 0;
             }
 
             var sections = containers[i].getElementsByClassName("section");
@@ -970,33 +970,23 @@
 
             var thumb = containers[i].getElementsByClassName("seriesthumb");
             if (thumb.length) {
-                thumb[0].clicked = true;
                 thumb[0].addEventListener("click", function() {
                     var content = this.nextElementSibling;
-                    if (this.clicked) {
-                        content.forcedVisible--;
-                        this.clicked = false;
-                    }
-                    else {
-                        content.forcedVisible++;
-                        this.clicked = true;
-                    }
-
-                    if (content.forcedVisible) return;
-                    if (content.style.maxHeight != "0px") {
-                        content.style.maxHeight = "0px";
-                    }
-                    else {
+                    if (content.forcedHidden) {
                         content.style.maxHeight = content.maximumHeight + "px";
+                        content.forcedHidden = false;
+                    }
+                    else {
+                        content.style.maxHeight = "0px";
+                        content.forcedHidden = true;
                     }
                 });
-                thumb[0].click();
             }
             
             containers[i].addEventListener("mouseover", function() {
                 var collapsibles = this.getElementsByClassName("collapsiblecontent");
                 for (var j = 0; j < collapsibles.length; j++) {
-                    if (collapsibles[j].forcedVisible) return;
+                    if (collapsibles[j].forcedHidden) return;
                 }
                 for (var j = 0; j < collapsibles.length; j++) {
                     collapsibles[j].style.maxHeight = collapsibles[j].maximumHeight + "px";
@@ -1012,6 +1002,13 @@
                     collapsibles[j].style.maxHeight = "0px";
                 }
             });
+        }
+
+        for (var i = 0; i < containers.length; i++) {
+            var collapsibles = containers[i].getElementsByClassName("collapsiblecontent");
+            for (var j = 0; j < collapsibles.length; j++) {
+                collapsibles[j].style.maxHeight = "0px";
+            }
         }
 
         document.getElementById("narrower").addEventListener("click", function() {
