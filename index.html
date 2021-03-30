@@ -944,6 +944,7 @@
             for (var j = 0; j < collapsibles.length; j++) {
                 collapsibles[j].maximumHeight = collapsibles[j].scrollHeight;
                 collapsibles[j].forcedVisible = 0;
+                collapsibles[j].forcedHidden = 0;
             }
 
             var sections = containers[i].getElementsByClassName("section");
@@ -972,13 +973,20 @@
             if (thumb.length) {
                 thumb[0].addEventListener("click", function() {
                     var content = this.nextElementSibling;
-                    if (content.forcedHidden) {
-                        content.style.maxHeight = content.maximumHeight + "px";
-                        content.forcedHidden = false;
+                    // if (content.forcedHidden) {
+                    //     content.style.maxHeight = content.maximumHeight + "px";
+                    //     content.forcedHidden = false;
+                    // }
+                    // else {
+                    //     content.style.maxHeight = "0px";
+                    //     content.forcedHidden = true;
+                    // }
+                    content.forcedHidden = !content.forcedHidden;
+                    if (content.style.maxHeight != "0px") {
+                        content.style.maxHeight = "0px";
                     }
                     else {
-                        content.style.maxHeight = "0px";
-                        content.forcedHidden = true;
+                        content.style.maxHeight = content.scrollHeight + "px";
                     }
                 });
             }
