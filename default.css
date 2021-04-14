@@ -43,8 +43,12 @@
     width: -webkit-fill-available;
 }
 
+.seriestitle:hover {
+    color: #345fff;
+}
+
 .seriesthumb:hover {
-    cursor: pointer;
+    /*cursor: pointer;*/
 }
 
 .section {
