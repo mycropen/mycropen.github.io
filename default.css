@@ -75,6 +75,11 @@
     color: white;
 }
 
+.filtered {
+    display: none;
+}
+
+
 .volume {
     font-weight: bolder;
     font-size: 15.5pt;
@@ -278,4 +283,40 @@ p > a:visited {
 
 .megafolder {
     background-color: #ea3b3b
+}
+
+.searchcontainer {
+    width: -webkit-fill-available;
+    display: grid;
+    grid-template-columns: 23% 23% 23% 23%;
+    margin-right: 3px;
+    margin-left: 3px;
+    padding-right: 3px;
+    justify-content: space-evenly;
+    background-color: #1f1f1f;
+}
+
+.searchbutton {
+    width: -webkit-fill-available;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 2px;
+    background-color: #1f1f1f;
+    font-size: 12pt;
+    padding: 2px;
+}
+
+.characterimage {
+    max-width: 100%;
+    display: inline-grid;
+    border: solid 2px #00000000;
+    border-radius: 10%;
+}
+
+.selected {
+    border-color: #5fdc00;
+}
+
+.unavailable {
+    opacity: 0.3;
 }

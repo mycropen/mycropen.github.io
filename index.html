@@ -641,7 +641,35 @@
       <button class="collapsebutton allchapters">
        All chapters
       </button>
-      <div class="collapsible serieschapters">
+      <div class="collapsible serieschapters" id="school-zone-chapters">
+       <button class="collapsebutton searchbutton" id="school-zone-chapters-search-button">
+        Filter by Character
+       </button>
+       <div class="collapsible searchcontainer">
+        <input alt="Yokoe Rei" class="characterimage" id="Yokoe Rei" onclick="school_zone_filter(this)" src="school-zone-characters/Yokoe2.jpg" type="image"/>
+        <input alt="Sugiura Kei" class="characterimage" id="Sugiura Kei" onclick="school_zone_filter(this)" src="school-zone-characters/Kei-chan.jpg" type="image"/>
+        <input alt="Negoro Yatsude" class="characterimage" id="Negoro Yatsude" onclick="school_zone_filter(this)" src="school-zone-characters/Yatsude.jpg" type="image"/>
+        <input alt="Fuji Matsuri" class="characterimage" id="Fuji Matsuri" onclick="school_zone_filter(this)" src="school-zone-characters/Fuji.jpg" type="image"/>
+        <input alt="Hinase Tsubaki" class="characterimage" id="Hinase Tsubaki" onclick="school_zone_filter(this)" src="school-zone-characters/Tsubaki.jpg" type="image"/>
+        <input alt="Nakatani Hinako" class="characterimage" id="Nakatani Hinako" onclick="school_zone_filter(this)" src="school-zone-characters/Piyo.jpg" type="image"/>
+        <input alt="Yamashiro Kaname" class="characterimage" id="Yamashiro Kaname" onclick="school_zone_filter(this)" src="school-zone-characters/Kaname.jpg" type="image"/>
+        <input alt="Kishiya" class="characterimage" id="Kishiya" onclick="school_zone_filter(this)" src="school-zone-characters/Kishiya.jpg" type="image"/>
+        <input alt="Hinase Hiiragi" class="characterimage" id="Hinase Hiiragi" onclick="school_zone_filter(this)" src="school-zone-characters/Hiiragi.jpg" type="image"/>
+        <input alt="Utsugi Ren" class="characterimage" id="Utsugi Ren" onclick="school_zone_filter(this)" src="school-zone-characters/Ren.jpg" type="image"/>
+        <input alt="Sakaki" class="characterimage" id="Sakaki" onclick="school_zone_filter(this)" src="school-zone-characters/Sakaki.jpg" type="image"/>
+        <input alt="Ueharu" class="characterimage" id="Ueharu" onclick="school_zone_filter(this)" src="school-zone-characters/Ueharu.jpg" type="image"/>
+        <input alt="Akutami" class="characterimage" id="Akutami" onclick="school_zone_filter(this)" src="school-zone-characters/Akutami.jpg" type="image"/>
+        <input alt="Mochida Mao" class="characterimage" id="Mochida Mao" onclick="school_zone_filter(this)" src="school-zone-characters/Mao.jpg" type="image"/>
+        <input alt="Karashima Aoi" class="characterimage" id="Karashima Aoi" onclick="school_zone_filter(this)" src="school-zone-characters/Aoi.jpg" type="image"/>
+        <input alt="Houzuki Hikari" class="characterimage" id="Houzuki Hikari" onclick="school_zone_filter(this)" src="school-zone-characters/Hikari.jpg" type="image"/>
+        <input alt="Sugiura Yui" class="characterimage" id="Sugiura Yui" onclick="school_zone_filter(this)" src="school-zone-characters/Yui.jpg" type="image"/>
+        <input alt="Yoichi Tamaki" class="characterimage" id="Yoichi Tamaki" onclick="school_zone_filter(this)" src="school-zone-characters/Tamaki.jpg" type="image"/>
+        <input alt="Yuusaki Yoru" class="characterimage" id="Yuusaki Yoru" onclick="school_zone_filter(this)" src="school-zone-characters/Yoru.jpg" type="image"/>
+        <input alt="clear" class="characterimage" id="clear" onclick="school_zone_filter(this)" src="School-Zone-characters/clear.png" type="image"/>
+        <script type="text/javascript">
+         document.getElementById("school-zone-chapters-search-button").addEventListener("click", () => {let new_script = document.createElement("script"); new_script.setAttribute("src", "school-zone-chapters-search.js"); document.getElementById("school-zone-chapters").appendChild(new_script); }, {once: true});
+        </script>
+       </div>
        <a class="chapter" href="https://mega.nz/file/MEo0lAaA#Ec8VOLKjhH5q6skpsnI2ziWjO2bc21ryA6xWw2HBQTo">
         #0
        </a>
@@ -975,6 +1003,9 @@
                             else {
                                 content.style.maxHeight = content.scrollHeight + "px";
                                 this.closest(".collapsiblecontent").forcedVisible++;
+                                if (content.parentElement.classList.contains("collapsible")) {
+                                  content.parentElement.style.maxHeight = parseInt(content.parentElement.style.maxHeight) + parseInt(content.style.maxHeight) + "px"
+                                }
                             }
                         });
                         buttons[k].click();
