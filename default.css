@@ -1,12 +1,108 @@
-.maincontainer {
+:root {
+    --bg-series1: url("img/flip_button_series1.svg") center no-repeat;
+    --bg-series2: url("img/flip_button_series2.svg") center no-repeat;
+    --bg-oneshots1: url("img/flip_button_oneshots1.svg") center no-repeat;
+    --bg-oneshots2: url("img/flip_button_oneshots2.svg") center no-repeat;
+}
+
+.maincontainer-name {
+    padding: 5px;
+    padding-left: 10px;
+}
+
+#contentflipper {
+    display: none;
+}
+
+#contentflipper + .maincontainer-name {
+    -webkit-transition: 3s;
+    -moz-transition: 3s;
+    -ms-transition: 3s;
+    -o-transition: 3s;
+    transition: 3s;
+    transition-timing-function: ease-out;
+}
+
+#contentflipper + .maincontainer-name label.contentswitch {
+    display: inline-block;
+    height: 35px;
+    aspect-ratio: 170/35;
+    border: 2px solid black;
+    border-radius: 8px;
+    background-color: none;
+    transition: 0.3s;
+    transition-timing-function: ease-out;
+}
+
+#contentflipper + .maincontainer-name label.contentswitch#seriesbutton {
+    display: inline-block;
+    background: var(--bg-series1);
+}
+
+#contentflipper + .maincontainer-name label.contentswitch#oneshotsbutton {
+    display: none;
+    background: var(--bg-oneshots1);
+}
+
+#contentflipper:checked + .maincontainer-name label.contentswitch#seriesbutton {
+    display: none;
+    background: var(--bg-series1);
+}
+
+#contentflipper:checked + .maincontainer-name label.contentswitch#oneshotsbutton {
+    display: inline-block;
+    background: var(--bg-oneshots1);
+}
+
+#contentflipper + .maincontainer-name label.contentswitch#seriesbutton:hover {
+    background: var(--bg-series2);
+    background-color: black;
+}
+
+#contentflipper:checked + .maincontainer-name label.contentswitch#oneshotsbutton:hover {
+    background: var(--bg-oneshots2);
+    background-color: black;
+}
+
+#contentflipper ~ .maincontainer {
     height: auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 5px;
+    margin: 5px;
     overflow: auto;
     justify-content: flex-start;
     align-items: flex-start;
+}
+
+#contentflipper ~ .maincontainer#maincont {
+    height: 0px;
+    animation: fade-in ease-out 0.35s 0.2s 1 forwards;
+}
+
+#contentflipper ~ .maincontainer#oneshotscont {
+    height: auto;
+    animation: fade-out ease-in 0.2s 0s 1 forwards;
+}
+
+#contentflipper:checked ~ .maincontainer#maincont {
+    height: auto;
+    animation: fade-out ease-in 0.2s 0s 1 forwards;
+}
+
+#contentflipper:checked ~ .maincontainer#oneshotscont {
+    height: 0px;
+    animation: fade-in ease-out 0.35s 0.2s 1 forwards;
+}
+
+@keyframes fade-in {
+  from {opacity: 0;}
+  to {opacity: 1; height: auto;}
+}
+
+@keyframes fade-out {
+  from {opacity: 1;}
+  to {opacity: 0; height: 0px;}
 }
 
 .seriescontainer {
@@ -43,8 +139,16 @@
     width: -webkit-fill-available;
 }
 
+.seriesdescription {
+    font-size: larger;
+}
+
 .seriestitle:hover {
     color: #345fff;
+}
+
+.oneshottitle:hover {
+    color: black;
 }
 
 .seriesthumb:hover {
@@ -161,7 +265,7 @@
     color: white;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     overflow: hidden;
-    background: #aaa;
+    background: #8a8a8a;
     width: -webkit-fill-available;
     padding-left: 2px;
 }
