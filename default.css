@@ -14,15 +14,6 @@
     display: none;
 }
 
-#contentflipper + .maincontainer-name {
-    -webkit-transition: 3s;
-    -moz-transition: 3s;
-    -ms-transition: 3s;
-    -o-transition: 3s;
-    transition: 3s;
-    transition-timing-function: ease-out;
-}
-
 #contentflipper + .maincontainer-name label.contentswitch {
     display: inline-block;
     height: 35px;
