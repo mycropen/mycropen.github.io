@@ -266,9 +266,10 @@
     margin-bottom: 5px;
     margin-left: 5px;
     line-height: 1.2;
+    color: white;
 }
 
-p > a:visited {
+.seriesinfolink {
     color: white;
 }
 
