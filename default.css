@@ -413,6 +413,10 @@
     border-color: #5fdc00;
 }
 
+.unwanted {
+    border-color: #c90a36;
+}
+
 .unavailable {
     opacity: 0.3;
 }

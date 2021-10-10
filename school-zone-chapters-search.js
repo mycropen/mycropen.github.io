@@ -4,9 +4,11 @@ const all_chapters = new Set(["#0", "#1", "#2", "#3", "#4", "#5", "#6", "#7", "#
 var active_filters = new Set();
 var possible_unions = Object.keys(chapters);
 var active_chapters = all_chapters;
+var unwanted_filters = new Set();
 
 function clear_filters(target) {
     active_filters.clear();
+    unwanted_filters.clear();
     active_chapters = all_chapters;
     possible_unions = Object.keys(chapters);
 
@@ -20,99 +22,89 @@ function clear_filters(target) {
     let characters = searchcont.getElementsByClassName("characterimage");
     for (var i = 0; i < characters.length; i++) {
         characters[i].classList.remove("selected");
+        characters[i].classList.remove("unwanted");
         characters[i].classList.remove("unavailable");
     }
 }
 
-function school_zone_filter(target = null) {
-    if (!target) return;
+function school_zone_filter() {
+    evt = null || window.event;
+    if (!evt) return;
+    target = evt.target;
     if (target.classList.contains("unavailable")) return;
 
     filter_name = "" || target.id;
     if (!filter_name) return;
 
     if (filter_name == "clear") clear_filters(target);
-    else if (active_filters.has(filter_name)) {
-        if (active_filters.size == 1) {
-            clear_filters(target);
+    else {
+        // unwanted characters
+        if (evt.shiftKey) {
+            if (unwanted_filters.has(filter_name)) {
+                target.classList.remove("unwanted");
+                unwanted_filters.delete(filter_name);
+            }
+            else {
+                if (active_filters.has(filter_name)) {
+                    target.classList.remove("selected");
+                    active_filters.delete(filter_name);
+                }
+                target.classList.add("unwanted");
+                unwanted_filters.add(filter_name);
+            }
         }
         else {
-            // remove filter
-            target.classList.remove("selected");
-            active_filters.delete(filter_name);
-
-            // just remake all filters
-            var new_active_chapters = new Set();
-            var new_possible_unions = new Set();
-
-            // filtered chapters
-            for (var ch of all_chapters.values()) {
-                let included = 0;
-                for (name of active_filters.values()) {
-                    if (chapters[name].includes(ch)) {
-                        included++;
-                        continue;
-                    }
-                }
-                if (included == active_filters.size) new_active_chapters.add(ch);
+            if (active_filters.has(filter_name)) {
+                target.classList.remove("selected");
+                active_filters.delete(filter_name);
             }
-
-            let chapterscoll = target.closest(".serieschapters");
-            let chapterlinks = chapterscoll.getElementsByClassName("chapter");
-            for (var i = 0; i < chapterlinks.length; i++) {
-                if (!new_active_chapters.has(chapterlinks[i].innerText.trim())) chapterlinks[i].classList.add("filtered");
-                else chapterlinks[i].classList.remove("filtered");
+            else {
+                if (unwanted_filters.has(filter_name)) {
+                    target.classList.remove("unwanted");
+                    unwanted_filters.delete(filter_name);
+                }
+                target.classList.add("selected");
+                active_filters.add(filter_name);
             }
-
-            // highlighted characters
-            for (char of Object.keys(chapters)) {
-                let possible = false;
-                for (var i = 0; i < chapters[char].length; i++) {
-                    if (new_active_chapters.has(chapters[char][i])) {
-                        possible = true;
-                        break;
-                    }
-                }
-
-                if (possible) {
-                    new_possible_unions.add(char);
-                    document.getElementById(char).classList.remove("unavailable");
-                }
-                else {
-                    document.getElementById(char).classList.add("unavailable");
-                }
-            }
-
-            active_chapters = new_active_chapters;
-            possible_unions = new_possible_unions;
         }
     }
-    else {
-        // add new filter
-        active_filters.add(filter_name);
-        var new_active_chapters = new Set([...active_chapters].filter(ch => chapters[filter_name].indexOf(ch) != -1));
 
-        // remove filtered chapters
+    if (active_filters.size == 0 && unwanted_filters.size == 0) clear_filters(target);
+    else {
+        // just remake all filters
+        var new_active_chapters = new Set();
+        var new_possible_unions = new Set();
+
+        // filtered chapters
+        for (var ch of all_chapters.values()) {
+            let excluded = 0;
+            for (name of unwanted_filters.values()) {
+                if (chapters[name].includes(ch)) {
+                    excluded++;
+                    break;
+                }
+            }
+            if (excluded) continue;
+
+            let included = 0;
+            for (name of active_filters.values()) {
+                if (chapters[name].includes(ch)) {
+                    included++;
+                    continue;
+                }
+            }
+            if (included == active_filters.size) new_active_chapters.add(ch);
+        }
+
         let chapterscoll = target.closest(".serieschapters");
         let chapterlinks = chapterscoll.getElementsByClassName("chapter");
         for (var i = 0; i < chapterlinks.length; i++) {
-            if (chapterlinks[i].classList.contains("filtered")) continue;
-            if (new_active_chapters.has(chapterlinks[i].innerText.trim())) continue;
-            chapterlinks[i].classList.add("filtered");
+            if (!new_active_chapters.has(chapterlinks[i].innerText.trim())) chapterlinks[i].classList.add("filtered");
+            else chapterlinks[i].classList.remove("filtered");
         }
 
-        // make incompatible characters unavailable
-        let searchcont = target.closest(".searchcontainer");
-        let characters = searchcont.getElementsByClassName("characterimage");
-        target.classList.add("selected");
-
-        var new_possible_unions = new Set([...possible_unions]);
-        for (var char of possible_unions.values()) {
-            if (char == filter_name) {
-                new_possible_unions.delete(char);
-                continue;
-            }
-
+        // highlighted characters
+        for (char of Object.keys(chapters)) {
             let possible = false;
             for (var i = 0; i < chapters[char].length; i++) {
                 if (new_active_chapters.has(chapters[char][i])) {
@@ -121,9 +113,13 @@ function school_zone_filter(target = null) {
                 }
             }
 
-            if (!possible) {
-                document.getElementById(char).classList.add("unavailable");
-                new_possible_unions.delete(char);
+            if (possible) {
+                new_possible_unions.add(char);
+                document.getElementById(char).classList.remove("unavailable");
+            }
+            else {
+                if (!document.getElementById(char).classList.contains("unwanted") && !document.getElementById(char).classList.contains("selected"))
+                    document.getElementById(char).classList.add("unavailable");
             }
         }
 
