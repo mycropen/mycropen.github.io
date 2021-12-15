@@ -45,10 +45,10 @@
   <div class="maincontainer" id="maincont">
    <div class="seriescontainer">
     <img class="seriesthumb" src="img/Riko_to_Haru_04_001.jpg"/>
+    <a class="seriestitle" href="https://mega.nz/folder/MAB1nYZY#MBpQVNEo5SVGbCKDB7XDkw">
+     Riko to Haru to Onsen to Iruka
+    </a>
     <div class="collapsiblecontent">
-     <a class="seriestitle" href="https://mega.nz/folder/MAB1nYZY#MBpQVNEo5SVGbCKDB7XDkw">
-      Riko to Haru to Onsen to Iruka
-     </a>
      <div class="section">
       <button class="collapsebutton seriesinfobutton">
        Series Info
@@ -144,10 +144,10 @@
    </div>
    <div class="seriescontainer">
     <img class="seriesthumb" src="img/Cosmo_Familia_01_001.jpg"/>
+    <a class="seriestitle" href="https://mega.nz/folder/UNxjVIgS#zwKjwMA7DsNZSLygjHYU9Q">
+     Cosmo Familia
+    </a>
     <div class="collapsiblecontent">
-     <a class="seriestitle" href="https://mega.nz/folder/UNxjVIgS#zwKjwMA7DsNZSLygjHYU9Q">
-      Cosmo Familia
-     </a>
      <div class="section">
       <button class="collapsebutton seriesinfobutton">
        Series Info
@@ -295,10 +295,10 @@
    </div>
    <div class="seriescontainer">
     <img class="seriesthumb" src="img/Kitanai_Kimi_ga_Ichiban_Kawaii_01_000.jpg"/>
+    <a class="seriestitle" href="https://mega.nz/folder/gVYkwZ6a#DfgAWFeYXTSNkywUwxQn2w">
+     Kitanai Kimi ga Ichiban Kawaii
+    </a>
     <div class="collapsiblecontent">
-     <a class="seriestitle" href="https://mega.nz/folder/gVYkwZ6a#DfgAWFeYXTSNkywUwxQn2w">
-      Kitanai Kimi ga Ichiban Kawaii
-     </a>
      <a class="chapter latest" href="https://mega.co.nz/#!RQpyxYqI!oPZ48D_Yn1bcKgG7F_nceGhr-Ef8HnzstXd82KcdPh0">
       Chapter 24
      </a>
@@ -470,10 +470,10 @@
    </div>
    <div class="seriescontainer">
     <img class="seriesthumb" src="img/Stardust_Telepath_01_001.jpg"/>
+    <a class="seriestitle" href="https://mega.nz/folder/EMhTRKBa#XHfwlV_3y9xBWL2gVlb7NA">
+     Stardust Telepath
+    </a>
     <div class="collapsiblecontent">
-     <a class="seriestitle" href="https://mega.nz/folder/EMhTRKBa#XHfwlV_3y9xBWL2gVlb7NA">
-      Stardust Telepath
-     </a>
      <a class="chapter latest" href="https://mega.co.nz/#!hJJxBCCQ!vmuem37Y48Z7xoGEF0j688E2BHkqYpzarKra8EeGTU0">
       Chapter 26
      </a>
@@ -629,10 +629,10 @@
    </div>
    <div class="seriescontainer">
     <img class="seriesthumb" src="img/School_Zone_02_000.jpg"/>
+    <a class="seriestitle" href="https://mega.nz/folder/1AxGlRDS#FXFaEZlQ8qdof5gBDM6gJw">
+     School Zone
+    </a>
     <div class="collapsiblecontent">
-     <a class="seriestitle" href="https://mega.nz/folder/1AxGlRDS#FXFaEZlQ8qdof5gBDM6gJw">
-      School Zone
-     </a>
      <a class="chapter latest" href="https://mega.nz/file/tAwkGLDR#uLwDOvGLlFas7wx3ywdg9yn7tT9R6OTkXZJ_UsFyOLc">
       Vol4 Extras
      </a>
@@ -1056,10 +1056,10 @@
   <div class="maincontainer" id="oneshotscont">
    <div class="seriescontainer">
     <img class="seriesthumb" src="img/Unsanitary.jpg"/>
+    <div class="seriestitle oneshottitle">
+     I Refuse to Do Anything Unsanitary
+    </div>
     <div class="collapsiblecontent">
-     <div class="seriestitle oneshottitle">
-      I Refuse to Do Anything Unsanitary
-     </div>
      <a class="chapter latest" href="https://mega.nz/file/NchUUCzA#7TgKN3mHZknBjcTxPLWs-_QFFhp-kcaMFL5N2O8nAQA">
       Chapter 1
      </a>
@@ -1115,10 +1115,10 @@
    </div>
    <div class="seriescontainer">
     <img class="seriesthumb" src="img/demon.png"/>
+    <div class="seriestitle oneshottitle">
+     The Demon Disappears Through a Lens
+    </div>
     <div class="collapsiblecontent">
-     <div class="seriestitle oneshottitle">
-      The Demon Disappears Through a Lens
-     </div>
      <a class="chapter latest" href="https://mega.nz/file/sJ5VUK4D#cJzK-63H6vM5EoJjoD03sJ6BIRAJecB2DdDl2MhfaUA">
       Oneshot
      </a>
@@ -1204,14 +1204,15 @@
             var thumb = containers[i].getElementsByClassName("seriesthumb");
             if (thumb.length) {
                 thumb[0].addEventListener("click", function() {
-                    var content = this.nextElementSibling;
-                    if (content.forcedHidden) {
-                        content.style.maxHeight = content.maximumHeight + "px";
-                        content.forcedHidden = false;
+                    // var content = this.nextElementSibling;
+                    var content = this.parentElement.querySelector('.collapsiblecontent');
+                    if (Boolean(content.clickedThumb)) {
+                        content.clickedThumb = false;
+                        content.forcedVisible--;
                     }
                     else {
-                        content.style.maxHeight = "0px";
-                        content.forcedHidden = true;
+                        content.clickedThumb = true;
+                        content.forcedVisible++;
                     }
                 });
             }
