@@ -1,0 +1,98 @@
+.header {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: auto max-content;
+    flex-wrap: nowrap;
+    flex-flow: row;
+    align-items: center;
+}
+
+.headertitle {
+    display: inline-grid;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.headercontent {
+    display: flex;
+
+}
+
+.headerbutton {
+    margin: 5px;
+    color: white;
+    padding: 10px;
+    font-size: 16pt;
+    font-family: "Arial"; 
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.headerbutton.changelog {
+    background-color: #323232;
+}
+
+.rss {
+    background-color: #ea3b3b;
+}
+
+.megafolder {
+    background-color: #ea3b3b
+}
+
+.changelogtable {
+    table-layout: auto;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.changelogtable .tableheader {
+    background-color: #333;
+    color: white;
+}
+
+.tableheader th {
+    padding: 5px;
+}
+
+.tableheader th select {
+    padding: 0;
+    background-color: inherit;
+    color: white;
+    border: none;
+    font: inherit;
+}
+
+.tableheader th select option {
+    background-color: #333;
+    color: white;
+    border: none;
+    font: inherit;
+}
+
+.changelogtable td {
+    background-color: #dedede;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.filehash {
+    /*border-bottom: 1px dashed #999;*/
+    display: inline;
+}
+
+.changeloglink {
+    color: black;
+}
+
+.changeloglink:visited {
+    color: inherit;
+}
+
+
+td.wrappable {
+    word-break: break-word;
+}

@@ -367,6 +367,10 @@
     border-radius: 5px;
 }
 
+.headerbutton.changelog {
+    background-color: #323232;
+}
+
 .increase, .decrease {
     background-color: #fff;
     color: black;
