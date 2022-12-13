@@ -96,3 +96,7 @@
 td.wrappable {
     word-break: break-word;
 }
+
+td {
+    font-size: 85%;
+}
